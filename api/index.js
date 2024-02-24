@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routes/auth');
+const quizRouter = require('./routes/quiz');
 
 /**
  * Initialize express app & servers
@@ -56,6 +57,7 @@ app.get('/', function (_req, res) {
 });
 
 app.use('/', authRouter);
+app.use('/quizzes', quizRouter);
 
 /**
  * Run socket server

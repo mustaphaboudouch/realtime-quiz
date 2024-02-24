@@ -3,4 +3,9 @@ const USER_ROLES = {
 	CLIENT: 'CLIENT',
 };
 
-module.exports = { USER_ROLES };
+const QUIZ_STATUSES = {
+	ACTIVE: 'ACTIVE',
+	DELETED: 'DELETED',
+};
+
+module.exports = { USER_ROLES, QUIZ_STATUSES };
