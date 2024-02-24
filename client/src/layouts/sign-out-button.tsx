@@ -1,5 +1,7 @@
+import { Button } from '@mantine/core';
+
 const SignOutButton = () => {
-	return <button>Sign out</button>;
+	return <Button>Sign Out</Button>;
 };
 
 export { SignOutButton };

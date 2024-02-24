@@ -10,10 +10,12 @@ import { AppLayoutRoute } from './layouts/app-layout';
 import { SignInRoute } from './pages/sign-in';
 import { SignUpRoute } from './pages/sign-up';
 import { DashboardRoute } from './pages/dashboard';
+import { QuizzesRoute } from './pages/quizzes';
+import { QuizRoute } from './pages/quiz';
 
 const routes = RootLayoutRoute.addChildren([
 	AuthLayoutRoute.addChildren([SignInRoute, SignUpRoute]),
-	AppLayoutRoute.addChildren([DashboardRoute]),
+	AppLayoutRoute.addChildren([DashboardRoute, QuizzesRoute, QuizRoute]),
 ]);
 
 const router = createRouter({

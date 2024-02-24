@@ -1,13 +1,22 @@
 import { Outlet, createRoute } from '@tanstack/react-router';
+import { AppShell, Container } from '@mantine/core';
 import { RootLayoutRoute } from './root-layout';
 import { Navbar } from './navbar';
 
 const AppLayout = () => {
 	return (
-		<>
-			<Navbar />
-			<Outlet />
-		</>
+		<AppShell header={{ height: 60 }}>
+			<AppShell.Header>
+				<Container h='100%'>
+					<Navbar />
+				</Container>
+			</AppShell.Header>
+			<AppShell.Main>
+				<Container>
+					<Outlet />
+				</Container>
+			</AppShell.Main>
+		</AppShell>
 	);
 };
 
