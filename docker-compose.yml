@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  client:
+    image: realtime-quiz-client
+    stdin_open: true
+    ports:
+      - '8080:8080'
+    networks:
+      - realtime-quiz-app
+
+  api:
+    image: realtime-quiz-api
+    ports:
+      - '3000:3000'
+    networks:
+      - realtime-quiz-app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:3.6.19-xenial
+    ports:
+      - '27017:27017'
+    networks:
+      - realtime-quiz-app
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  realtime-quiz-app:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

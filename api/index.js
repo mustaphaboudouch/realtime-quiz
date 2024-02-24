@@ -37,7 +37,7 @@ io.on('connection', async function (socket) {
  * Run HTTP server
  */
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, function () {
 	console.log(`🚀 HTTP server is running on port ${PORT}`);
