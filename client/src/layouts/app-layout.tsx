@@ -1,4 +1,4 @@
-import { Outlet, createRoute } from '@tanstack/react-router';
+import { Outlet, createRoute, redirect } from '@tanstack/react-router';
 import { AppShell, Container } from '@mantine/core';
 import { RootLayoutRoute } from './root-layout';
 import { Navbar } from './navbar';
@@ -26,6 +26,11 @@ const AppLayoutRoute = createRoute({
 	id: 'app-layout',
 	getParentRoute: () => RootLayoutRoute,
 	component: AppLayout,
+	beforeLoad: ({ context: { user } }) => {
+		if (!user) {
+			throw redirect({ to: '/sign-in' });
+		}
+	},
 });
 
 export { AppLayoutRoute };

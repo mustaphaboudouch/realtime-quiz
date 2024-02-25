@@ -1,4 +1,4 @@
-import { Outlet, createRoute } from '@tanstack/react-router';
+import { Outlet, createRoute, redirect } from '@tanstack/react-router';
 import { AppShell, Container } from '@mantine/core';
 import { RootLayoutRoute } from './root-layout';
 import { Navbar } from './navbar';
@@ -26,6 +26,11 @@ const AuthLayoutRoute = createRoute({
 	id: 'auth-layout',
 	getParentRoute: () => RootLayoutRoute,
 	component: AuthLayout,
+	beforeLoad: ({ context: { user } }) => {
+		if (!!user) {
+			throw redirect({ to: '/' });
+		}
+	},
 });
 
 export { AuthLayoutRoute };

@@ -1,4 +1,4 @@
-import { Link, createRoute, useNavigate } from '@tanstack/react-router';
+import { Link, createRoute } from '@tanstack/react-router';
 import {
 	Anchor,
 	Button,
@@ -22,7 +22,6 @@ const schema = z.object({
 });
 
 const SignIn = () => {
-	const navigate = useNavigate({ from: '/sign-in' });
 	const [_value, setValue] = useLocalStorage({ key: 'jwt-token' });
 
 	const form = useForm({
@@ -39,10 +38,7 @@ const SignIn = () => {
 		},
 		onSuccess: (value) => {
 			setValue(value.data.token);
-			navigate({
-				to: '/',
-				replace: true,
-			});
+			window.location.reload();
 		},
 		onError: () => {
 			notifications.show({

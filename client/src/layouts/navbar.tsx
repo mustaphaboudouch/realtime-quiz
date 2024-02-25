@@ -10,15 +10,22 @@ type NavbarProps = {
 const Navbar = ({ user }: NavbarProps) => {
 	return (
 		<Group align='center' justify='space-between' h='100%'>
-			<Link to='/'>Quizz App</Link>
+			<Link to='/' preload={false}>
+				Quizz App
+			</Link>
 
 			<Group align='center' h='100%'>
 				{!!user && (
 					<>
-						<Button variant='subtle' component={Link} to='/'>
+						<Button variant='subtle' component={Link} to='/' preload={false}>
 							Dashboard
 						</Button>
-						<Button variant='subtle' component={Link} to='quizzes'>
+						<Button
+							variant='subtle'
+							component={Link}
+							to='quizzes'
+							preload={false}
+						>
 							Quizzes
 						</Button>
 						<SignOutButton />
@@ -26,10 +33,10 @@ const Navbar = ({ user }: NavbarProps) => {
 				)}
 				{!user && (
 					<>
-						<Button component={Link} to='/sign-in'>
+						<Button component={Link} to='/sign-in' preload={false}>
 							Sign In
 						</Button>
-						<Button component={Link} to='/sign-up'>
+						<Button component={Link} to='/sign-up' preload={false}>
 							Sign Up
 						</Button>
 					</>
