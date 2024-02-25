@@ -38,4 +38,4 @@ Have all base features and have 3 bonus features :
 
 - User management
 - Database for users and quizz sessions
-- accessibility
+- Accessibility
