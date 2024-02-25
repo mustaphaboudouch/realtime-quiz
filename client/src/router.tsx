@@ -2,6 +2,9 @@ import {
 	RouterProvider as TanstackRouterProvider,
 	createRouter,
 } from '@tanstack/react-router';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { User } from './types';
 
 import { RootLayoutRoute } from './layouts/root-layout';
 import { AuthLayoutRoute } from './layouts/auth-layout';
@@ -34,7 +37,19 @@ declare module '@tanstack/react-router' {
 }
 
 const Router = () => {
-	return <TanstackRouterProvider router={router} />;
+	const { data, isLoading } = useQuery({
+		queryKey: ['me'],
+		queryFn: async () => {
+			return axios.get('http://127.0.0.1:3000/me');
+		},
+		retry: false,
+	});
+
+	const user = data as User | null | undefined;
+
+	return (
+		!isLoading && <TanstackRouterProvider router={router} context={{ user }} />
+	);
 };
 
 export { Router };

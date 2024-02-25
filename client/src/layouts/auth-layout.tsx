@@ -12,7 +12,7 @@ const AuthLayout = () => {
 				</Container>
 			</AppShell.Header>
 			<AppShell.Main>
-				<Container>
+				<Container size='xs' py='xl'>
 					<Outlet />
 				</Container>
 			</AppShell.Main>
