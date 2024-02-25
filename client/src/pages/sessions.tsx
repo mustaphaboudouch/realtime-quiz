@@ -30,7 +30,7 @@ const Sessions = () => {
 		<Stack>
 			<Group align='center' justify='space-between' mb='lg'>
 				<Title order={1} size='1.8rem' lh='xl'>
-					All sessions
+					Sessions
 				</Title>
 			</Group>
 

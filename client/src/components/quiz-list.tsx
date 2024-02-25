@@ -1,5 +1,4 @@
-import { Link, createRoute } from '@tanstack/react-router';
-import { AppLayoutRoute } from '../layouts/app-layout';
+import { Link } from '@tanstack/react-router';
 import { Button, Flex, Grid, Group, Stack, Text, Title } from '@mantine/core';
 import { IconPlus, IconSearchOff } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +6,7 @@ import axios from 'axios';
 import { Quiz } from '../types';
 import { QuizCard } from '../components/quiz-card';
 
-const Quizzes = () => {
+const QuizList = () => {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['quizzes'],
 		queryFn: async () => {
@@ -30,7 +29,7 @@ const Quizzes = () => {
 		<Stack>
 			<Group align='center' justify='space-between' mb='lg'>
 				<Title order={1} size='1.8rem' lh='xl'>
-					All quizzes
+					Quizzes
 				</Title>
 				<Button
 					leftSection={<IconPlus size='1rem' />}
@@ -68,10 +67,4 @@ const Quizzes = () => {
 	);
 };
 
-const QuizzesRoute = createRoute({
-	path: '/quizzes',
-	getParentRoute: () => AppLayoutRoute,
-	component: Quizzes,
-});
-
-export { QuizzesRoute };
+export { QuizList };

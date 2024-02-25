@@ -4,26 +4,21 @@ import { SignOutButton } from './sign-out-button';
 
 type NavbarProps = {
 	isAuthenticated: boolean;
+	role: 'ADMIN' | 'CLIENT' | null;
 };
 
-const Navbar = ({ isAuthenticated }: NavbarProps) => {
+const Navbar = ({ isAuthenticated, role }: NavbarProps) => {
 	return (
 		<Group align='center' justify='space-between' h='100%'>
 			<Group>
 				<Title order={4}>Realtime Quiz</Title>
-				{isAuthenticated && (
-					<Group gap={0}>
+				<Group gap={0}>
+					{isAuthenticated && (
 						<Button variant='subtle' component={Link} to='/' preload={false}>
-							Dashboard
+							{role === 'ADMIN' ? 'Quizzes' : 'Join session'}
 						</Button>
-						<Button
-							variant='subtle'
-							component={Link}
-							to='/quizzes'
-							preload={false}
-						>
-							Quizzes
-						</Button>
+					)}
+					{isAuthenticated && role === 'ADMIN' && (
 						<Button
 							variant='subtle'
 							component={Link}
@@ -32,8 +27,8 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
 						>
 							Sessions
 						</Button>
-					</Group>
-				)}
+					)}
+				</Group>
 			</Group>
 
 			<Group align='center' h='100%'>

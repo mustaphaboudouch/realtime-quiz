@@ -74,7 +74,7 @@ const QuizCreate = () => {
 			notifications.show({
 				message: 'Quiz created successfully',
 			});
-			navigate({ to: '/quizzes' });
+			navigate({ to: '/' });
 		},
 		onError: () => {
 			notifications.show({

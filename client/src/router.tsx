@@ -9,8 +9,7 @@ import { AppLayoutRoute } from './layouts/app-layout';
 
 import { SignInRoute } from './pages/sign-in';
 import { SignUpRoute } from './pages/sign-up';
-import { DashboardRoute } from './pages/dashboard';
-import { QuizzesRoute } from './pages/quizzes';
+import { HomeRoute } from './pages/home';
 import { QuizCreateRoute } from './pages/quiz-create';
 import { QuizEditRoute } from './pages/quiz-edit';
 import { SessionsRoute } from './pages/sessions';
@@ -18,8 +17,7 @@ import { SessionsRoute } from './pages/sessions';
 const routes = RootLayoutRoute.addChildren([
 	AuthLayoutRoute.addChildren([SignInRoute, SignUpRoute]),
 	AppLayoutRoute.addChildren([
-		DashboardRoute,
-		QuizzesRoute,
+		HomeRoute,
 		QuizCreateRoute,
 		QuizEditRoute,
 		SessionsRoute,
@@ -32,6 +30,7 @@ const router = createRouter({
 	defaultPreloadStaleTime: 0,
 	context: {
 		isAuthenticated: false,
+		role: null,
 	},
 });
 
@@ -43,11 +42,12 @@ declare module '@tanstack/react-router' {
 
 const Router = () => {
 	const token = localStorage.getItem('jwt-token');
+	const role = localStorage.getItem('role') as 'ADMIN' | 'CLIENT' | null;
 
 	return (
 		<TanstackRouterProvider
 			router={router}
-			context={{ isAuthenticated: !!token }}
+			context={{ isAuthenticated: !!token, role }}
 		/>
 	);
 };

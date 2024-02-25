@@ -16,7 +16,7 @@ const schema = z.object({
 });
 
 const SessionModal = ({ quizId }: SessionModal) => {
-	const navigate = useNavigate({ from: '/quizzes' });
+	const navigate = useNavigate({ from: '/' });
 	const [opened, { open, close }] = useDisclosure(false);
 	const queryClient = useQueryClient();
 
