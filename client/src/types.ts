@@ -24,4 +24,14 @@ type Quiz = {
 	questions: Question[];
 };
 
-export type { User, UserRole, Answer, Question, Quiz };
+type Session = {
+	_id: string;
+	quizId: {
+		_id: string;
+		name: string;
+	};
+	code: string;
+	status: 'ACTIVE' | 'EXPIRED';
+};
+
+export type { User, UserRole, Answer, Question, Quiz, Session };

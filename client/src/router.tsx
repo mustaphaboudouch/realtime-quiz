@@ -11,8 +11,9 @@ import { SignInRoute } from './pages/sign-in';
 import { SignUpRoute } from './pages/sign-up';
 import { DashboardRoute } from './pages/dashboard';
 import { QuizzesRoute } from './pages/quizzes';
-import { QuizRoute } from './pages/quiz';
 import { QuizCreateRoute } from './pages/quiz-create';
+import { QuizEditRoute } from './pages/quiz-edit';
+import { SessionsRoute } from './pages/sessions';
 
 const routes = RootLayoutRoute.addChildren([
 	AuthLayoutRoute.addChildren([SignInRoute, SignUpRoute]),
@@ -20,7 +21,8 @@ const routes = RootLayoutRoute.addChildren([
 		DashboardRoute,
 		QuizzesRoute,
 		QuizCreateRoute,
-		QuizRoute,
+		QuizEditRoute,
+		SessionsRoute,
 	]),
 ]);
 

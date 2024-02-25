@@ -20,7 +20,7 @@ async function getQuizById(req, res) {
 			_id: req.params.id,
 			userId: res.locals.user.id,
 			status: QUIZ_STATUSES.ACTIVE,
-		});
+		}).select('+questions.answers.isCorrect');
 
 		if (!quiz) {
 			return res.status(404).json({ message: 'Quiz not found' });

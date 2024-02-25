@@ -4,47 +4,23 @@ const { SESSION_STATUSES, QUIZ_STATUSES } = require('../lib/constants');
 
 async function getSessions(_req, res) {
 	try {
-		const quizzes = await Quiz.findOne({
+		const quizzes = await Quiz.find({
 			userId: res.locals.user.id,
 			status: QUIZ_STATUSES.ACTIVE,
 		});
-		const quizzesIds = quizzes.map((quiz) => quiz._id);
+		const quizzesIds = quizzes.map((quiz) => quiz._id.toHexString());
 
 		const sessions = await Session.find({
-			status: SESSION_STATUSES.ACTIVE,
 			quizId: {
 				$in: quizzesIds,
 			},
-		});
+		}).populate('quizId', 'name');
+
+		console.log(JSON.stringify(sessions, null, 2));
 
 		return res.status(200).json(sessions);
 	} catch (error) {
-		return res.status(500).json({ message: 'Internal server error' });
-	}
-}
-
-async function getSessionById(req, res) {
-	try {
-		const quizzes = await Quiz.findOne({
-			userId: res.locals.user.id,
-			status: QUIZ_STATUSES.ACTIVE,
-		});
-		const quizzesIds = quizzes.map((quiz) => quiz._id);
-
-		const session = await Session.findOne({
-			_id: req.params.id,
-			status: SESSION_STATUSES.ACTIVE,
-			quizId: {
-				$in: quizzesIds,
-			},
-		});
-
-		if (!session) {
-			return res.status(404).json({ message: 'Session not found' });
-		}
-
-		return res.status(200).json(session);
-	} catch (error) {
+		console.log(error);
 		return res.status(500).json({ message: 'Internal server error' });
 	}
 }
@@ -53,11 +29,11 @@ async function createSession(req, res) {
 	try {
 		const { quizId, code } = req.body;
 
-		const quizzes = await Quiz.findOne({
+		const quizzes = await Quiz.find({
 			userId: res.locals.user.id,
 			status: QUIZ_STATUSES.ACTIVE,
 		});
-		const quizzesIds = quizzes.map((quiz) => quiz._id);
+		const quizzesIds = quizzes.map((quiz) => quiz._id.toHexString());
 
 		if (!quizId || !quizzesIds.includes(quizId) || !code) {
 			return res.status(400).json({ message: 'Invalid input' });
@@ -77,16 +53,11 @@ async function createSession(req, res) {
 
 async function updateSession(req, res) {
 	try {
-		const { status } = req.body;
-		if (!Object.keys(SESSION_STATUSES).includes(status)) {
-			return res.status(400).json({ message: 'Invalid input' });
-		}
-
-		const quizzes = await Quiz.findOne({
+		const quizzes = await Quiz.find({
 			userId: res.locals.user.id,
 			status: QUIZ_STATUSES.ACTIVE,
 		});
-		const quizzesIds = quizzes.map((quiz) => quiz._id);
+		const quizzesIds = quizzes.map((quiz) => quiz._id.toHexString());
 
 		const session = await Session.findOneAndUpdate(
 			{
@@ -96,7 +67,9 @@ async function updateSession(req, res) {
 					$in: quizzesIds,
 				},
 			},
-			{ status },
+			{
+				status: SESSION_STATUSES.EXPIRED,
+			},
 			{ new: true },
 		);
 
@@ -112,7 +85,6 @@ async function updateSession(req, res) {
 
 module.exports = {
 	getSessions,
-	getSessionById,
 	createSession,
 	updateSession,
 };

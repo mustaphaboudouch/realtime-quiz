@@ -1,17 +1,17 @@
-import { Link, createRoute } from '@tanstack/react-router';
+import { createRoute } from '@tanstack/react-router';
 import { AppLayoutRoute } from '../layouts/app-layout';
-import { Button, Flex, Grid, Group, Stack, Text, Title } from '@mantine/core';
-import { IconPlus, IconSearchOff } from '@tabler/icons-react';
+import { Flex, Grid, Group, Stack, Text, Title } from '@mantine/core';
+import { IconSearchOff } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Quiz } from '../types';
-import { QuizCard } from '../components/quiz-card';
+import { Session } from '../types';
+import { SessionCard } from '../components/session-card';
 
-const Quizzes = () => {
+const Sessions = () => {
 	const { data, isLoading, error } = useQuery({
-		queryKey: ['quizzes'],
+		queryKey: ['sessions'],
 		queryFn: async () => {
-			const { data } = await axios.get('http://127.0.0.1:3000/quizzes', {
+			const { data } = await axios.get('http://127.0.0.1:3000/sessions', {
 				headers: {
 					Authorization: 'Bearer ' + localStorage.getItem('jwt-token'),
 				},
@@ -24,31 +24,23 @@ const Quizzes = () => {
 
 	if (error || !data) return <h1>Error</h1>;
 
-	const quizzes = data as unknown as Quiz[];
+	const sessions = data as unknown as Session[];
 
 	return (
 		<Stack>
 			<Group align='center' justify='space-between' mb='lg'>
 				<Title order={1} size='1.8rem' lh='xl'>
-					All quizzes
+					All sessions
 				</Title>
-				<Button
-					leftSection={<IconPlus size='1rem' />}
-					component={Link}
-					to='/quizzes/create'
-					preload={false}
-				>
-					Create a quiz
-				</Button>
 			</Group>
 
 			<Grid>
-				{quizzes.map((quiz) => (
-					<QuizCard key={quiz._id} {...quiz} />
+				{sessions.map((session) => (
+					<SessionCard key={session._id} {...session} />
 				))}
 			</Grid>
 
-			{quizzes.length === 0 && (
+			{sessions.length === 0 && (
 				<Flex
 					align='center'
 					justify='center'
@@ -60,7 +52,7 @@ const Quizzes = () => {
 				>
 					<Group align='center'>
 						<IconSearchOff size='1.2rem' color='gray' />
-						<Text c='dimmed'>No quizzes found !</Text>
+						<Text c='dimmed'>No sessions found !</Text>
 					</Group>
 				</Flex>
 			)}
@@ -68,10 +60,10 @@ const Quizzes = () => {
 	);
 };
 
-const QuizzesRoute = createRoute({
-	path: '/quizzes',
+const SessionsRoute = createRoute({
+	path: '/sessions',
 	getParentRoute: () => AppLayoutRoute,
-	component: Quizzes,
+	component: Sessions,
 });
 
-export { QuizzesRoute };
+export { SessionsRoute };

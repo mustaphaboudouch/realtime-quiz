@@ -51,7 +51,7 @@ const defaultQuestion = {
 
 const QuizCreate = () => {
 	const navigate = useNavigate({ from: '/quizzes/create' });
-	const queryClients = useQueryClient();
+	const queryClient = useQueryClient();
 
 	const form = useForm({
 		initialValues: {
@@ -70,7 +70,7 @@ const QuizCreate = () => {
 			});
 		},
 		onSuccess: () => {
-			queryClients.invalidateQueries({ queryKey: ['quizzes'] });
+			queryClient.invalidateQueries({ queryKey: ['quizzes'] });
 			notifications.show({
 				message: 'Quiz created successfully',
 			});
