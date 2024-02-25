@@ -12,7 +12,7 @@ const AppLayout = () => {
 				</Container>
 			</AppShell.Header>
 			<AppShell.Main>
-				<Container>
+				<Container py='xl'>
 					<Outlet />
 				</Container>
 			</AppShell.Main>

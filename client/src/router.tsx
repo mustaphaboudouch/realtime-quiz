@@ -15,10 +15,16 @@ import { SignUpRoute } from './pages/sign-up';
 import { DashboardRoute } from './pages/dashboard';
 import { QuizzesRoute } from './pages/quizzes';
 import { QuizRoute } from './pages/quiz';
+import { QuizCreateRoute } from './pages/quiz-create';
 
 const routes = RootLayoutRoute.addChildren([
 	AuthLayoutRoute.addChildren([SignInRoute, SignUpRoute]),
-	AppLayoutRoute.addChildren([DashboardRoute, QuizzesRoute, QuizRoute]),
+	AppLayoutRoute.addChildren([
+		DashboardRoute,
+		QuizzesRoute,
+		QuizCreateRoute,
+		QuizRoute,
+	]),
 ]);
 
 const router = createRouter({
