@@ -34,4 +34,43 @@ type Session = {
 	status: 'ACTIVE' | 'EXPIRED';
 };
 
-export type { User, UserRole, Answer, Question, Quiz, Session };
+type SubscriptionEntity = {
+	_id: string;
+	questions: {
+		_id: string;
+		question: string;
+		isAnswered: boolean;
+		isCorrect: boolean;
+		answers: {
+			_id: string;
+			answer: string;
+			isSelected: boolean;
+		}[];
+	}[];
+};
+
+type Subscription = {
+	_id: string;
+	question: {
+		_id: string;
+		question: string;
+		isAnswered: boolean;
+		answers: {
+			_id: string;
+			answer: string;
+			isSelected: boolean;
+		}[];
+	};
+	hasMoreQuestions: boolean;
+};
+
+export type {
+	User,
+	UserRole,
+	Answer,
+	Question,
+	Quiz,
+	Session,
+	Subscription,
+	SubscriptionEntity,
+};
