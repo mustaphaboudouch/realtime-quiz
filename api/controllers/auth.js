@@ -41,7 +41,7 @@ async function signIn(req, res) {
 		}
 
 		const token = buildToken(user);
-		return res.status(200).json({ token });
+		return res.status(200).json({ token, role: user.role });
 	} catch (error) {
 		return res.status(500).json({ message: 'Internal server error' });
 	}

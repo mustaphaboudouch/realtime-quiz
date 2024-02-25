@@ -16,11 +16,8 @@ async function getSessions(_req, res) {
 			},
 		}).populate('quizId', 'name');
 
-		console.log(JSON.stringify(sessions, null, 2));
-
 		return res.status(200).json(sessions);
 	} catch (error) {
-		console.log(error);
 		return res.status(500).json({ message: 'Internal server error' });
 	}
 }

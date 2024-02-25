@@ -35,6 +35,7 @@ const SignIn = () => {
 		},
 		onSuccess: (value) => {
 			localStorage.setItem('jwt-token', value.data.token);
+			localStorage.setItem('role', value.data.role);
 			window.location.reload();
 		},
 		onError: () => {

@@ -10,7 +10,7 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
 	return (
 		<Group align='center' justify='space-between' h='100%'>
 			<Group>
-				<Title order={5}>Realtime Quiz</Title>
+				<Title order={4}>Realtime Quiz</Title>
 				{isAuthenticated && (
 					<Group gap={0}>
 						<Button variant='subtle' component={Link} to='/' preload={false}>
