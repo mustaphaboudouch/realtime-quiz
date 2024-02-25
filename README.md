@@ -26,7 +26,7 @@ API URL : http://localhost:3000
 Front URL : http://localhost:8080
 
 
-  By :
+  Collaborators :
 - Mustapha Boudouch :  authentification - docker - quiz crud - session crud - accessibilité
 - Jason Da Cunha : front - socket connection client side
 - Ali Fatoorifar : session crud - subscription system - accessibilité
