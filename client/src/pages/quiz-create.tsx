@@ -165,7 +165,7 @@ const QuizCreate = () => {
 												size='md'
 												disabled={!canDeleteAnswer(i)}
 												onClick={() =>
-													form.removeListItem(`questions.${i}.answers`, i)
+													form.removeListItem(`questions.${i}.answers`, j)
 												}
 											>
 												<IconTrash size='1rem' />

@@ -15,6 +15,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import { notifications } from '@mantine/notifications';
 import axios from 'axios';
+import { useNavigate } from '@tanstack/react-router';
 
 type QuizFormProps = {
 	quiz: Quiz;
@@ -52,6 +53,7 @@ const defaultQuestion = {
 };
 
 const QuizForm = ({ quiz }: QuizFormProps) => {
+	const navigate = useNavigate({ from: '/quizzes/$id' });
 	const queryClients = useQueryClient();
 
 	const form = useForm({
@@ -75,6 +77,7 @@ const QuizForm = ({ quiz }: QuizFormProps) => {
 			notifications.show({
 				message: 'Quiz updated successfully',
 			});
+			navigate({ to: '/' });
 		},
 		onError: () => {
 			notifications.show({
@@ -163,7 +166,7 @@ const QuizForm = ({ quiz }: QuizFormProps) => {
 											size='md'
 											disabled={!canDeleteAnswer(i)}
 											onClick={() =>
-												form.removeListItem(`questions.${i}.answers`, i)
+												form.removeListItem(`questions.${i}.answers`, j)
 											}
 										>
 											<IconTrash size='1rem' />
