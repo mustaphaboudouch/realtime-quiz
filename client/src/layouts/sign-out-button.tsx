@@ -1,24 +1,17 @@
 import { Button } from '@mantine/core';
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import axios from 'axios';
+import { useLocalStorage } from '@mantine/hooks';
 
 const SignOutButton = () => {
-	const navigate = useNavigate();
-
-	const mutation = useMutation({
-		mutationFn: async () => {
-			return axios.post('http://127.0.0.1:3000/sign-out');
-		},
-		onSuccess: () => {
-			navigate({
-				to: '/sign-in',
-				replace: true,
-			});
-		},
+	const [_value, _setValue, removeValue] = useLocalStorage({
+		key: 'jwt-token',
 	});
 
-	return <Button onClick={() => mutation.mutate()}>Sign Out</Button>;
+	function onSignOut() {
+		removeValue();
+		window.location.reload();
+	}
+
+	return <Button onClick={onSignOut}>Sign Out</Button>;
 };
 
 export { SignOutButton };

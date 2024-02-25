@@ -4,11 +4,13 @@ import { RootLayoutRoute } from './root-layout';
 import { Navbar } from './navbar';
 
 const AuthLayout = () => {
+	const { user } = AuthLayoutRoute.useRouteContext();
+
 	return (
 		<AppShell header={{ height: 60 }}>
 			<AppShell.Header>
 				<Container h='100%'>
-					<Navbar />
+					<Navbar user={user} />
 				</Container>
 			</AppShell.Header>
 			<AppShell.Main>

@@ -5,7 +5,6 @@ const express = require('express');
 const cors = require('cors');
 const { Server } = require('socket.io');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routes/auth');
 const quizRouter = require('./routes/quiz');
@@ -45,8 +44,6 @@ app.use(cors({ origin: '*' }));
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-
-app.use(cookieParser());
 
 /**
  * Routes

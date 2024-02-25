@@ -1,7 +1,7 @@
 type UserRole = 'ADMIN' | 'CLIENT';
 
 type User = {
-	id: string;
+	_id: string;
 	username: string;
 	role: UserRole;
 };

@@ -17,6 +17,7 @@ import { IconPlus, IconTrash } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocalStorage } from '@mantine/hooks';
 
 const schema = z.object({
 	name: z.string().min(1),
@@ -50,6 +51,7 @@ const defaultQuestion = {
 };
 
 const QuizCreate = () => {
+	const [value] = useLocalStorage({ key: 'jwt-token' });
 	const navigate = useNavigate({ from: '/quizzes/create' });
 	const queryClients = useQueryClient();
 
@@ -63,7 +65,11 @@ const QuizCreate = () => {
 
 	const mutation = useMutation({
 		mutationFn: async (data: unknown) => {
-			return axios.post('http://127.0.0.1:3000/quizzes', data);
+			return axios.post('http://127.0.0.1:3000/quizzes', data, {
+				headers: {
+					Authorization: 'Bearer ' + value,
+				},
+			});
 		},
 		onSuccess: () => {
 			queryClients.invalidateQueries({ queryKey: ['quizzes'] });
@@ -83,7 +89,7 @@ const QuizCreate = () => {
 	function onSubmit() {
 		const validation = form.validate();
 		if (!validation.hasErrors) {
-			console.log(form.values);
+			mutation.mutate(form.values);
 		}
 	}
 

@@ -41,26 +41,7 @@ async function signIn(req, res) {
 		}
 
 		const token = buildToken(user);
-		const cookieOptions = {
-			httpOnly: true,
-			secure: process.env.NODE_ENV === 'production',
-		};
-
-		return res
-			.cookie(process.env.JWT_COOKIE_NAME, token, cookieOptions)
-			.status(200)
-			.json({ message: 'Signed in successfully' });
-	} catch (error) {
-		return res.status(500).json({ message: 'Internal server error' });
-	}
-}
-
-async function signOut(_req, res) {
-	try {
-		return res
-			.clearCookie(process.env.JWT_COOKIE_NAME)
-			.status(200)
-			.json({ message: 'Signed out successfully' });
+		return res.status(200).json({ token });
 	} catch (error) {
 		return res.status(500).json({ message: 'Internal server error' });
 	}
@@ -83,6 +64,5 @@ async function me(_req, res) {
 module.exports = {
 	signUp,
 	signIn,
-	signOut,
 	me,
 };

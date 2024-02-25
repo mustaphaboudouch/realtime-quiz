@@ -4,7 +4,6 @@ import {
 } from '@tanstack/react-router';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { User } from './types';
 
 import { RootLayoutRoute } from './layouts/root-layout';
 import { AuthLayoutRoute } from './layouts/auth-layout';
@@ -16,6 +15,8 @@ import { DashboardRoute } from './pages/dashboard';
 import { QuizzesRoute } from './pages/quizzes';
 import { QuizRoute } from './pages/quiz';
 import { QuizCreateRoute } from './pages/quiz-create';
+import { useLocalStorage } from '@mantine/hooks';
+import { User } from './types';
 
 const routes = RootLayoutRoute.addChildren([
 	AuthLayoutRoute.addChildren([SignInRoute, SignUpRoute]),
@@ -43,15 +44,23 @@ declare module '@tanstack/react-router' {
 }
 
 const Router = () => {
+	const [value] = useLocalStorage({ key: 'jwt-token' });
+
 	const { data, isLoading } = useQuery({
 		queryKey: ['me'],
 		queryFn: async () => {
-			return axios.get('http://127.0.0.1:3000/me');
+			const { data } = await axios.get('http://127.0.0.1:3000/me', {
+				headers: {
+					Authorization: 'Bearer ' + value,
+				},
+			});
+			return data;
 		},
+		enabled: !!value,
 		retry: false,
 	});
 
-	const user = data as User | null | undefined;
+	const user = data as unknown as User;
 
 	return (
 		!isLoading && <TanstackRouterProvider router={router} context={{ user }} />
