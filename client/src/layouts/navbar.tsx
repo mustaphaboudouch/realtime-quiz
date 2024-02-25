@@ -1,13 +1,12 @@
 import { Link } from '@tanstack/react-router';
 import { Button, Group } from '@mantine/core';
 import { SignOutButton } from './sign-out-button';
-import { User } from '../types';
 
 type NavbarProps = {
-	user: User | null;
+	isAuthenticated: boolean;
 };
 
-const Navbar = ({ user }: NavbarProps) => {
+const Navbar = ({ isAuthenticated }: NavbarProps) => {
 	return (
 		<Group align='center' justify='space-between' h='100%'>
 			<Link to='/' preload={false}>
@@ -15,7 +14,7 @@ const Navbar = ({ user }: NavbarProps) => {
 			</Link>
 
 			<Group align='center' h='100%'>
-				{!!user && (
+				{isAuthenticated && (
 					<>
 						<Button variant='subtle' component={Link} to='/' preload={false}>
 							Dashboard
@@ -31,7 +30,7 @@ const Navbar = ({ user }: NavbarProps) => {
 						<SignOutButton />
 					</>
 				)}
-				{!user && (
+				{!isAuthenticated && (
 					<>
 						<Button component={Link} to='/sign-in' preload={false}>
 							Sign In

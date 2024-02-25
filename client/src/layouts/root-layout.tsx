@@ -1,8 +1,7 @@
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
-import { User } from '../types';
 
 type RootLayoutRouteContext = {
-	user: User | null;
+	isAuthenticated: boolean;
 };
 
 const RootLayout = () => {

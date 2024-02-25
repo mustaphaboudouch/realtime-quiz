@@ -1,13 +1,8 @@
 import { Button } from '@mantine/core';
-import { useLocalStorage } from '@mantine/hooks';
 
 const SignOutButton = () => {
-	const [_value, _setValue, removeValue] = useLocalStorage({
-		key: 'jwt-token',
-	});
-
 	function onSignOut() {
-		removeValue();
+		localStorage.removeItem('jwt-token');
 		window.location.reload();
 	}
 

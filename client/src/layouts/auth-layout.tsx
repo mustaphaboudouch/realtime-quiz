@@ -4,13 +4,13 @@ import { RootLayoutRoute } from './root-layout';
 import { Navbar } from './navbar';
 
 const AuthLayout = () => {
-	const { user } = AuthLayoutRoute.useRouteContext();
+	const { isAuthenticated } = AuthLayoutRoute.useRouteContext();
 
 	return (
 		<AppShell header={{ height: 60 }}>
 			<AppShell.Header>
 				<Container h='100%'>
-					<Navbar user={user} />
+					<Navbar isAuthenticated={isAuthenticated} />
 				</Container>
 			</AppShell.Header>
 			<AppShell.Main>
@@ -26,8 +26,8 @@ const AuthLayoutRoute = createRoute({
 	id: 'auth-layout',
 	getParentRoute: () => RootLayoutRoute,
 	component: AuthLayout,
-	beforeLoad: ({ context: { user } }) => {
-		if (!!user) {
+	beforeLoad: ({ context: { isAuthenticated } }) => {
+		if (isAuthenticated) {
 			throw redirect({ to: '/' });
 		}
 	},

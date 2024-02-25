@@ -14,7 +14,6 @@ import { notifications } from '@mantine/notifications';
 import axios from 'axios';
 import { z } from 'zod';
 import { AuthLayoutRoute } from '../layouts/auth-layout';
-import { useLocalStorage } from '@mantine/hooks';
 
 const schema = z.object({
 	username: z.string().min(4),
@@ -22,8 +21,6 @@ const schema = z.object({
 });
 
 const SignIn = () => {
-	const [_value, setValue] = useLocalStorage({ key: 'jwt-token' });
-
 	const form = useForm({
 		initialValues: {
 			username: '',
@@ -37,7 +34,7 @@ const SignIn = () => {
 			return axios.post('http://127.0.0.1:3000/sign-in', data);
 		},
 		onSuccess: (value) => {
-			setValue(value.data.token);
+			localStorage.setItem('jwt-token', value.data.token);
 			window.location.reload();
 		},
 		onError: () => {

@@ -14,7 +14,6 @@ import { IconEye, IconPlus, IconSearchOff } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Quiz } from '../types';
-import { useLocalStorage } from '@mantine/hooks';
 
 const QuizCard = ({ _id, name, questions }: Quiz) => {
 	return (
@@ -41,19 +40,16 @@ const QuizCard = ({ _id, name, questions }: Quiz) => {
 };
 
 const Quizzes = () => {
-	const [value] = useLocalStorage({ key: 'jwt-token' });
-
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['quizzes'],
 		queryFn: async () => {
 			const { data } = await axios.get('http://127.0.0.1:3000/quizzes', {
 				headers: {
-					Authorization: 'Bearer ' + value,
+					Authorization: 'Bearer ' + localStorage.getItem('jwt-token'),
 				},
 			});
 			return data;
 		},
-		enabled: !!value,
 	});
 
 	if (isLoading) return <h1>Loading...</h1>;
