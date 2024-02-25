@@ -8,4 +8,9 @@ const QUIZ_STATUSES = {
 	DELETED: 'DELETED',
 };
 
-module.exports = { USER_ROLES, QUIZ_STATUSES };
+const SESSION_STATUSES = {
+	ACTIVE: 'ACTIVE',
+	EXPIRED: 'EXPIRED',
+};
+
+module.exports = { USER_ROLES, QUIZ_STATUSES, SESSION_STATUSES };

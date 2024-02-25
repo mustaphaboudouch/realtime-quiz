@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 
 const authRouter = require('./routes/auth');
 const quizRouter = require('./routes/quiz');
+const sessionRouter = require('./routes/session');
 
 /**
  * Initialize express app & servers
@@ -55,6 +56,7 @@ app.get('/', function (_req, res) {
 
 app.use('/', authRouter);
 app.use('/quizzes', quizRouter);
+app.use('/sessions', sessionRouter);
 
 /**
  * Run socket server
