@@ -31,7 +31,6 @@ Front URL : http://localhost:8080
 - Jason Da Cunha :
 - Ali Fatoorifar :
 - Walid BoulBoul :
- - User management
 
 
 
