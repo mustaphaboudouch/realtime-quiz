@@ -27,10 +27,10 @@ Front URL : http://localhost:8080
 
 
   By :
-- Mustapha Boudouch :
-- Jason Da Cunha :
-- Ali Fatoorifar :
-- Walid BoulBoul :
+- Mustapha Boudouch :  authentification - docker - quiz crud - session crud - accessibilité
+- Jason Da Cunha : front - socket connection client side
+- Ali Fatoorifar : session crud - subscription system - accessibilité
+- Walid BoulBoul : socket connection server side
 
 
 
