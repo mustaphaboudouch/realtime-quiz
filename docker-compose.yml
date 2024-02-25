@@ -2,15 +2,25 @@ version: '3'
 
 services:
   client:
-    image: realtime-quiz-client
+    container_name: realtime-quiz-client
+    image: realtime-quiz-client:1.0.0
+    build:
+      context: client
+      dockerfile: Dockerfile
     stdin_open: true
     ports:
       - '8080:8080'
     networks:
       - realtime-quiz-app
+    depends_on:
+      - api
 
   api:
-    image: realtime-quiz-api
+    container_name: realtime-quiz-api
+    image: realtime-quiz-api:1.0.0
+    build:
+      context: api
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     networks:
