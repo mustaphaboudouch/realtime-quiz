@@ -24,8 +24,6 @@ const SubscriptionList = () => {
 
 	const subscriptions = data as unknown as SubscriptionEntity[];
 
-	console.log('subscriptions', subscriptions);
-
 	return (
 		<Stack>
 			<Group align='center' justify='space-between' mb='lg'>

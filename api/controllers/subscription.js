@@ -8,8 +8,6 @@ async function getSubscriptions(_req, res) {
 			status: SUBSCRIPTION_STATUSES.DONE,
 		});
 
-		console.log('subscriptions', subscriptions);
-
 		return res.status(200).json(subscriptions);
 	} catch (error) {
 		return res.status(500).json({ message: 'Internal server error' });

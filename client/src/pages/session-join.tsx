@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 import { useEffect } from 'react';
 import { notifications } from '@mantine/notifications';
 import { AppLayoutRoute } from '../layouts/app-layout';
-import { createRoute } from '@tanstack/react-router';
+import { createRoute, useNavigate } from '@tanstack/react-router';
 
 const schema = z.object({
 	code: z.string().min(1),
@@ -18,6 +18,8 @@ const socket = io('http://localhost:3000', {
 });
 
 const SessionJoin = () => {
+	const navigate = useNavigate();
+
 	const form = useForm({
 		initialValues: {
 			code: '',
@@ -35,7 +37,7 @@ const SessionJoin = () => {
 		});
 
 		socket.on('SESSION_JOIN_SUCCESS', () => {
-			console.log('JOINED');
+			navigate({ to: '/sessions/preview' });
 		});
 
 		return () => {

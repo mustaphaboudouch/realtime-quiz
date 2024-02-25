@@ -31,7 +31,7 @@ const QuestionForm = (subscription: Subscription) => {
 		useState<Subscription>(subscription);
 	const form = useForm({
 		initialValues: {
-			answers: subscription.question.answers,
+			answers: currentSubscription.question.answers,
 		},
 		validate: zodResolver(schema),
 	});
@@ -49,6 +49,7 @@ const QuestionForm = (subscription: Subscription) => {
 			notifications.show({
 				message: 'Bravo! Correct answer',
 			});
+			form.setFieldValue('answers', data.question.answers);
 			setCurrentSubscription(data);
 		});
 
@@ -56,12 +57,13 @@ const QuestionForm = (subscription: Subscription) => {
 			notifications.show({
 				message: 'Oooops! Incorrect answer',
 			});
+			form.setFieldValue('answers', data.question.answers);
 			setCurrentSubscription(data);
 		});
 
 		socket.on('QUESTION_DONE_SUCCESS', (id: string) => {
 			notifications.show({
-				message: 'Bravo! Correct answer DONE',
+				message: 'Bravo! Correct answer',
 			});
 			navigate({
 				to: '/subscriptions/$id',
@@ -73,7 +75,7 @@ const QuestionForm = (subscription: Subscription) => {
 
 		socket.on('QUESTION_DONE_ERROR', (id: string) => {
 			notifications.show({
-				message: 'Oooops! Incorrect answer DONE',
+				message: 'Oooops! Incorrect answer',
 			});
 			navigate({
 				to: '/subscriptions/$id',

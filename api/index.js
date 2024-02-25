@@ -127,7 +127,6 @@ io.on('connection', async function (socket) {
 		const question = subscription.questions.find(
 			(q) => q._id.toHexString() === data.questionId,
 		);
-		console.log('question', question);
 		if (question.isAnswered) {
 			return socket.emit(
 				'QUESTION_ANSWER_ERROR',
