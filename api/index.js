@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 const authRouter = require('./routes/auth');
 const quizRouter = require('./routes/quiz');
 const sessionRouter = require('./routes/session');
+const { verifyToken } = require('./lib/token');
+const isAuthenticatedSocket = require('./middlewares/isAuthenticatedSocket');
 
 /**
  * Initialize express app & servers
@@ -46,6 +48,10 @@ app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
+io.use(function (socket, next) {
+	isAuthenticatedSocket(socket, next);
+});
+
 /**
  * Routes
  */
@@ -63,7 +69,12 @@ app.use('/sessions', sessionRouter);
  */
 
 io.on('connection', async function (socket) {
-	console.log(`🚀 Socket connected`);
+	console.log(`🚀 ${socket.id} user connected successfully`);
+	console.log('User', socket.user);
+
+	socket.on('disconnect', function () {
+		console.log(`💤 ${socket.id} user disconnected successfully`);
+	});
 });
 
 /**
