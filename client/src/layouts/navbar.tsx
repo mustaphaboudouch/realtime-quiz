@@ -15,7 +15,17 @@ const Navbar = ({ isAuthenticated, role }: NavbarProps) => {
 				<Group gap={0}>
 					{isAuthenticated && (
 						<Button variant='subtle' component={Link} to='/' preload={false}>
-							{role === 'ADMIN' ? 'Quizzes' : 'Join session'}
+							{role === 'ADMIN' ? 'Quizzes' : 'My Quizzes'}
+						</Button>
+					)}
+					{isAuthenticated && role === 'CLIENT' && (
+						<Button
+							variant='subtle'
+							component={Link}
+							to='/sessions/join'
+							preload={false}
+						>
+							Join a session
 						</Button>
 					)}
 					{isAuthenticated && role === 'ADMIN' && (
